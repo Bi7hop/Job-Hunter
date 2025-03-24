@@ -1,0 +1,163 @@
+<div class="analysis-container">
+    <div class="analysis-header">
+      <h1>Job Market Analysis</h1>
+      <p>Insights and trends from your job search data</p>
+      
+      <div class="analysis-filters">
+        <mat-form-field appearance="outline">
+          <mat-label>Date Range</mat-label>
+          <mat-select [(value)]="selectedDateRange" (selectionChange)="updateDateRange()">
+            <mat-option *ngFor="let range of dateRanges" [value]="range.value">
+              {{ range.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    
+    <div class="analysis-summary">
+      <div class="summary-card-grid">
+        <mat-card class="summary-card">
+          <div class="summary-icon">
+            <mat-icon>trending_up</mat-icon>
+          </div>
+          <div class="summary-content">
+            <h2 class="summary-title">Total Jobs</h2>
+            <div class="summary-value">378</div>
+            <div class="summary-trend positive">
+              <mat-icon>arrow_upward</mat-icon>
+              <span>12.5% increase vs. previous period</span>
+            </div>
+          </div>
+        </mat-card>
+        
+        <mat-card class="summary-card">
+          <div class="summary-icon">
+            <mat-icon>attach_money</mat-icon>
+          </div>
+          <div class="summary-content">
+            <h2 class="summary-title">Average Salary</h2>
+            <div class="summary-value">€65,420</div>
+            <div class="summary-trend positive">
+              <mat-icon>arrow_upward</mat-icon>
+              <span>4.2% increase vs. previous period</span>
+            </div>
+          </div>
+        </mat-card>
+        
+        <mat-card class="summary-card">
+          <div class="summary-icon">
+            <mat-icon>star</mat-icon>
+          </div>
+          <div class="summary-content">
+            <h2 class="summary-title">Most Demanded Skill</h2>
+            <div class="summary-value">React</div>
+            <div class="summary-subtext">
+              <span>Found in 38% of jobs</span>
+            </div>
+          </div>
+        </mat-card>
+        
+        <mat-card class="summary-card">
+          <div class="summary-icon">
+            <mat-icon>location_on</mat-icon>
+          </div>
+          <div class="summary-content">
+            <h2 class="summary-title">Top Location</h2>
+            <div class="summary-value">Berlin</div>
+            <div class="summary-subtext">
+              <span>31% of job postings</span>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    
+    <div class="analysis-charts">
+      <mat-tab-group>
+        <mat-tab label="Job Trends">
+          <div class="chart-container">
+            <h2 class="chart-title">Job Postings Over Time</h2>
+            <div class="chart-card">
+              <div class="placeholder-chart">
+                <p>Line chart showing job postings trends over time</p>
+                <p class="placeholder-note">In a real implementation, this would be a chart using ng2-charts or another chart library</p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        
+        <mat-tab label="Skills Analysis">
+          <div class="chart-container">
+            <h2 class="chart-title">Most Demanded Skills</h2>
+            <div class="chart-card">
+              <div class="placeholder-chart">
+                <p>Bar chart showing most in-demand skills</p>
+                <p class="placeholder-note">In a real implementation, this would be a chart using ng2-charts or another chart library</p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        
+        <mat-tab label="Platform Distribution">
+          <div class="chart-container">
+            <h2 class="chart-title">Job Postings by Platform</h2>
+            <div class="chart-card">
+              <div class="placeholder-chart">
+                <p>Pie chart showing job distribution across platforms</p>
+                <p class="placeholder-note">In a real implementation, this would be a chart using ng2-charts or another chart library</p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+        
+        <mat-tab label="Salary Insights">
+          <div class="chart-container">
+            <h2 class="chart-title">Salary Distribution</h2>
+            <div class="chart-card">
+              <div class="placeholder-chart">
+                <p>Bar chart showing salary distribution</p>
+                <p class="placeholder-note">In a real implementation, this would be a chart using ng2-charts or another chart library</p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    
+    <div class="analysis-insights">
+      <h2 class="section-title">Key Insights</h2>
+      
+      <div class="insights-grid">
+        <mat-card class="insight-card">
+          <div class="insight-icon">
+            <mat-icon>lightbulb</mat-icon>
+          </div>
+          <div class="insight-content">
+            <h3>Skill Trend</h3>
+            <p>React skills are trending 15% higher than last month. Consider highlighting React projects in your portfolio.</p>
+          </div>
+        </mat-card>
+        
+        <mat-card class="insight-card">
+          <div class="insight-icon">
+            <mat-icon>location_city</mat-icon>
+          </div>
+          <div class="insight-content">
+            <h3>Location Insights</h3>
+            <p>Remote job offerings have increased by 24% compared to the previous period.</p>
+          </div>
+        </mat-card>
+        
+        <mat-card class="insight-card">
+          <div class="insight-icon">
+            <mat-icon>euro</mat-icon>
+          </div>
+          <div class="insight-content">
+            <h3>Salary Insights</h3>
+            <p>Full-stack positions tend to offer 12% higher salaries than specialized frontend or backend roles.</p>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>

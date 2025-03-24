@@ -1,0 +1,56 @@
+<div class="help-container">
+  <div class="help-header">
+    <h1>Help Center</h1>
+    <p>Find answers to common questions and learn how to use JobScraper</p>
+  </div>
+  
+  <div class="help-search">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search for help topics</mat-label>
+      <input matInput [(ngModel)]="searchQuery" placeholder="Type your question...">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  
+  <div class="help-categories" *ngIf="!searchQuery.trim()">
+    <h2 class="section-title">Help Categories</h2>
+    <div class="categories-grid">
+      <mat-card class="category-card" *ngFor="let category of helpCategories">
+        <div class="category-icon">
+          <mat-icon>{{ category.icon }}</mat-icon>
+        </div>
+        <h3>{{ category.title }}</h3>
+        <p>{{ category.description }}</p>
+        <a href="{{ category.link }}" class="category-link">Learn more</a>
+      </mat-card>
+    </div>
+  </div>
+  
+  <div class="help-faq">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let faq of filteredFaq; let i = index">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ faq.question }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="faq-answer">{{ faq.answer }}</p>
+      </mat-expansion-panel>
+    </mat-accordion>
+    
+    <div class="no-results" *ngIf="searchQuery.trim() && filteredFaq.length === 0">
+      <mat-icon>search_off</mat-icon>
+      <p>No results found for "{{ searchQuery }}"</p>
+      <p>Try different keywords or <a href="#">contact support</a></p>
+    </div>
+  </div>
+  
+  <div class="help-contact">
+    <mat-card class="contact-card">
+      <h2>Still Need Help?</h2>
+      <p>Our support team is available to assist you with any questions or issues.</p>
+      <button mat-raised-button color="primary" class="contact-button">Contact Support</button>
+    </mat-card>
+  </div>
+</div>

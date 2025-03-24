@@ -1,0 +1,48 @@
+<mat-card class="filter-card">
+    <mat-card-content>
+      <h2 class="section-title">Find Your Perfect Job</h2>
+      <div class="filter-form">
+        <div class="filter-row">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-label>Search by title, skill, or company</mat-label>
+            <input matInput placeholder="E.g. Angular Developer" [(ngModel)]="searchQuery">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+        
+        <div class="filter-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Job Type</mat-label>
+            <mat-select [(ngModel)]="selectedJobType">
+              <mat-option *ngFor="let type of jobTypes" [value]="type">{{ type }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Experience Level</mat-label>
+            <mat-select [(ngModel)]="selectedExperience">
+              <mat-option *ngFor="let level of experienceLevels" [value]="level">{{ level }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <mat-select [(ngModel)]="selectedLocation">
+              <mat-option *ngFor="let location of locations" [value]="location">{{ location }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="filter-actions">
+          <button mat-stroked-button color="primary">
+            <mat-icon>filter_list</mat-icon>
+            More Filters
+          </button>
+          <button mat-raised-button color="primary" (click)="onSearch()">
+            <mat-icon>search</mat-icon>
+            Search Jobs
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>

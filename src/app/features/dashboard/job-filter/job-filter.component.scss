@@ -1,0 +1,48 @@
+.filter-card {
+    background-color: #283142;
+    border-radius: 10px;
+    margin-bottom: 24px;
+  }
+  
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: white;
+  }
+  
+  .filter-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+    
+    mat-form-field {
+      flex: 1;
+      min-width: 200px;
+    }
+  }
+  
+  .search-field {
+    width: 100%;
+  }
+  
+  .filter-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    
+    @media (max-width: 599px) {
+      flex-direction: column;
+      
+      button {
+        width: 100%;
+        margin-bottom: 8px;
+      }
+    }
+  }

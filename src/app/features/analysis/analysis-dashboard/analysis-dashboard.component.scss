@@ -1,0 +1,226 @@
+.analysis-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  .analysis-header {
+    margin-bottom: 32px;
+    
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    p {
+      margin: 8px 0 0;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+    
+    .analysis-filters {
+      margin-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      
+      mat-form-field {
+        width: 200px;
+      }
+    }
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: var(--text-primary);
+  }
+  
+  .analysis-summary {
+    margin-bottom: 32px;
+  }
+  
+  .summary-card-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+    
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .summary-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    display: flex;
+    
+    .summary-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background-color: var(--primary-light);
+      margin-right: 16px;
+      
+      mat-icon {
+        color: var(--primary-color);
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    .summary-content {
+      flex: 1;
+      
+      .summary-title {
+        margin: 0 0 8px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--text-secondary);
+      }
+      
+      .summary-value {
+        margin: 0 0 8px;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+      
+      .summary-trend {
+        display: flex;
+        align-items: center;
+        font-size: 12px;
+        
+        &.positive {
+          color: var(--success-color);
+        }
+        
+        &.negative {
+          color: var(--danger-color);
+        }
+        
+        mat-icon {
+          font-size: 16px;
+          width: 16px;
+          height: 16px;
+          margin-right: 4px;
+        }
+      }
+      
+      .summary-subtext {
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+    }
+  }
+  
+  .analysis-charts {
+    margin-bottom: 32px;
+    
+    ::ng-deep .mat-mdc-tab-header {
+      margin-bottom: 24px;
+    }
+    
+    .chart-title {
+      margin: 0 0 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .chart-card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      min-height: 300px;
+    }
+    
+    .placeholder-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 300px;
+      
+      p {
+        color: var(--text-secondary);
+        margin: 0;
+        text-align: center;
+      }
+      
+      .placeholder-note {
+        margin-top: 16px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+    }
+  }
+  
+  .analysis-insights {
+    margin-bottom: 40px;
+  }
+  
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+    
+    @media (min-width: 768px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .insight-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    display: flex;
+    
+    .insight-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background-color: var(--primary-light);
+      margin-right: 16px;
+      
+      mat-icon {
+        color: var(--primary-color);
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+    
+    .insight-content {
+      flex: 1;
+      
+      h3 {
+        margin: 0 0 8px;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      
+      p {
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+    }
+  }

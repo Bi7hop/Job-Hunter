@@ -1,0 +1,36 @@
+<header class="app-header">
+  <div class="header-left">
+    <button mat-icon-button class="menu-button" (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  
+  <div class="header-middle" [class.search-active]="isSearchVisible">
+    <div class="search-container" *ngIf="isSearchVisible">
+      <mat-icon class="search-icon">search</mat-icon>
+      <input type="text" 
+             class="search-input" 
+             placeholder="Search jobs, skills, companies..." 
+             [(ngModel)]="searchQuery"
+             (keyup.enter)="performSearch()">
+      <button class="clear-button" (click)="toggleSearch()" *ngIf="isSearchVisible">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  
+  <div class="header-right">
+    <button mat-icon-button class="search-button" (click)="toggleSearch()" *ngIf="!isSearchVisible">
+      <mat-icon>search</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>notifications</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>settings</mat-icon>
+    </button>
+    <button mat-icon-button class="avatar-button">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+  </div>
+</header>

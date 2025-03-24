@@ -1,0 +1,214 @@
+.help-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  
+  .help-header {
+    margin-bottom: 32px;
+    
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    p {
+      margin: 8px 0 0;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+  }
+  
+  .help-search {
+    margin-bottom: 32px;
+    
+    .search-field {
+      width: 100%;
+      max-width: 600px;
+      
+      ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+      
+      ::ng-deep .mat-mdc-text-field-wrapper {
+        background-color: var(--card-bg);
+        border-radius: var(--border-radius);
+      }
+    }
+  }
+  
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 20px;
+    color: var(--text-primary);
+  }
+  
+  .help-categories {
+    margin-bottom: 40px;
+  }
+  
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+    
+    @media (min-width: 576px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .category-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .category-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background-color: var(--primary-light);
+      margin-bottom: 16px;
+      
+      mat-icon {
+        color: var(--primary-color);
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    p {
+      margin: 0 0 16px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      flex-grow: 1;
+    }
+    
+    .category-link {
+      color: var(--primary-color);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .help-faq {
+    margin-bottom: 40px;
+    
+    mat-expansion-panel {
+      background-color: var(--card-bg);
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      
+      ::ng-deep .mat-expansion-panel-header {
+        padding: 0 24px;
+        height: 64px;
+      }
+      
+      ::ng-deep .mat-expansion-panel-body {
+        padding: 0 24px 24px;
+      }
+      
+      .faq-answer {
+        color: var(--text-secondary);
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+    
+    .no-results {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 0;
+      
+      mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+        color: var(--text-muted);
+      }
+      
+      p {
+        margin: 8px 0;
+        color: var(--text-secondary);
+        font-size: 16px;
+        text-align: center;
+        
+        a {
+          color: var(--primary-color);
+          text-decoration: none;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+  
+  .help-contact {
+    .contact-card {
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 32px;
+      text-align: center;
+      
+      h2 {
+        margin: 0 0 16px;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+      
+      p {
+        margin: 0 0 24px;
+        font-size: 16px;
+        color: var(--text-secondary);
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .contact-button {
+        background-color: var(--primary-color);
+        color: white;
+        
+        &:hover {
+          background-color: var(--primary-hover);
+        }
+      }
+    }
+  }

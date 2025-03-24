@@ -1,0 +1,117 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Job Search Dashboard</h1>
+    <p>Track and analyze job postings across multiple platforms</p>
+  </div>
+
+  <div class="search-section">
+    <div class="search-row">
+      <div class="search-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Job Title / Keywords</mat-label>
+          <input matInput placeholder="e.g. Frontend Developer, Python">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+      
+      <div class="search-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Location</mat-label>
+          <input matInput placeholder="City, Country or Remote">
+        </mat-form-field>
+      </div>
+      
+      <div class="search-field">
+        <mat-form-field appearance="outline">
+          <mat-label>Job Types</mat-label>
+          <mat-select [(value)]="selectedJobType">
+            <mat-option *ngFor="let type of jobTypes" [value]="type">{{ type }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div class="search-actions">
+        <button class="advanced-filters-button">
+          Advanced Filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Total Jobs Found</span>
+        </div>
+        <div class="stat-value">378</div>
+        <div class="stat-trend positive">
+          <mat-icon class="trend-icon">trending_up</mat-icon>
+          +12%
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">New Today</span>
+        </div>
+        <div class="stat-value">43</div>
+        <div class="stat-trend positive">
+          <mat-icon class="trend-icon">trending_up</mat-icon>
+          +8%
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Avg. Salary</span>
+        </div>
+        <div class="stat-value">€65k</div>
+        <div class="stat-trend positive">
+          <mat-icon class="trend-icon">trending_up</mat-icon>
+          +4%
+        </div>
+      </div>
+      
+      <div class="stat-card">
+        <div class="stat-header">
+          <span class="stat-label">Tracked Sites</span>
+        </div>
+        <div class="stat-value">8</div>
+        <div class="stat-status">Active</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="jobs-section">
+    <h2 class="section-title">Latest Job Listings</h2>
+    
+    <div class="job-cards">
+      <div class="job-card" *ngFor="let job of recentJobs">
+        <div class="job-card-left">
+          <div class="company-initial" [style.background-color]="job.initialColor">
+            {{ job.company.charAt(0) }}
+          </div>
+        </div>
+        
+        <div class="job-card-middle">
+          <h3 class="job-title">{{ job.title }}</h3>
+          <div class="job-company">{{ job.company }} · {{ job.location }}</div>
+          
+          <div class="job-tags">
+            <span class="job-tag" *ngFor="let tag of job.tags">{{ tag }}</span>
+          </div>
+        </div>
+        
+        <div class="job-card-right">
+          <div class="job-meta">
+            <div class="job-posted">Posted {{ job.postedTime }}</div>
+            <div class="job-source">via {{ job.source }}</div>
+          </div>
+          
+          <button class="view-job-button">View Job</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

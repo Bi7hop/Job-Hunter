@@ -1,0 +1,49 @@
+<div class="job-overview">
+    <h2 class="section-title">Recent Job Postings</h2>
+    <div class="grid-container">
+      <div class="grid-item job-card-container" *ngFor="let job of jobs">
+        <mat-card class="job-card">
+          <div class="job-card-header">
+            <div class="company-logo" [style.background-image]="'url(' + job.logo + ')'"></div>
+            <div class="job-card-title">
+              <h3>{{ job.title }}</h3>
+              <h4>{{ job.company }}</h4>
+              <div class="job-location">
+                <mat-icon>location_on</mat-icon>
+                <span>{{ job.location }}</span>
+              </div>
+            </div>
+            <div class="job-actions">
+              <button mat-icon-button matTooltip="Save Job">
+                <mat-icon>bookmark_border</mat-icon>
+              </button>
+            </div>
+          </div>
+          
+          <mat-card-content>
+            <div class="job-details">
+              <div class="job-salary">
+                <mat-icon>euro</mat-icon>
+                <span>{{ job.salary }}</span>
+              </div>
+              <div class="job-posted">
+                <mat-icon>access_time</mat-icon>
+                <span>{{ getDaysAgo(job.postedDate) }}</span>
+              </div>
+            </div>
+            
+            <div class="job-skills">
+              <span class="skill-tag" *ngFor="let skill of job.skills">{{ skill }}</span>
+            </div>
+            
+            <p class="job-description">{{ job.description }}</p>
+          </mat-card-content>
+          
+          <mat-card-actions align="end">
+            <button mat-stroked-button color="primary">View Details</button>
+            <button mat-raised-button color="primary">Apply Now</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>

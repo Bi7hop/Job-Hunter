@@ -1,0 +1,126 @@
+.settings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.settings-header {
+  margin-bottom: 32px;
+  
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  
+  p {
+    margin: 8px 0 0;
+    color: var(--text-secondary);
+    font-size: 14px;
+  }
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+  
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 992px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.settings-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  
+  .settings-card-title {
+    margin: 0 0 24px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+}
+
+.settings-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  
+  .option-info {
+    flex: 1;
+    margin-right: 16px;
+    
+    h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+  }
+}
+
+mat-divider {
+  margin: 0;
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.settings-select {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  min-width: 140px;
+  
+  option {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+  }
+}
+
+.settings-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.advanced-filters-button {
+  background-color: var(--primary-color);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0 20px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  
+  &:hover {
+    background-color: var(--primary-hover);
+  }
+  
+  &:active {
+    background-color: rgba(255, 255, 255, 0.16);
+  }
+}

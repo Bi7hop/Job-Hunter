@@ -1,0 +1,75 @@
+$success-color: #2dce89;
+$danger-color: #f5365c;
+
+.stat-card {
+  background-color: #283142;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 7px 30px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.stat-card-content {
+  display: flex;
+  padding: 20px;
+}
+
+.stat-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  margin-right: 16px;
+  
+  mat-icon {
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.stat-card-info {
+  flex: 1;
+}
+
+.stat-card-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.stat-card-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 8px 0;
+  color: white;
+}
+
+.stat-card-trend {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+  }
+  
+  &.positive {
+    color: $success-color;
+  }
+  
+  &.negative {
+    color: $danger-color;
+  }
+}

@@ -1,0 +1,15 @@
+<mat-card class="stat-card">
+    <div class="stat-card-content">
+      <div class="stat-card-icon" [style.background-color]="card.color + '20'">
+        <mat-icon [style.color]="card.color">{{ card.icon }}</mat-icon>
+      </div>
+      <div class="stat-card-info">
+        <h3 class="stat-card-title">{{ card.title }}</h3>
+        <div class="stat-card-value">{{ card.value }}</div>
+        <div class="stat-card-trend" [class.positive]="card.increase" [class.negative]="!card.increase">
+          <mat-icon>{{ card.increase ? 'trending_up' : 'trending_down' }}</mat-icon>
+          <span>{{ card.percentage }}% {{ card.increase ? 'increase' : 'decrease' }}</span>
+        </div>
+      </div>
+    </div>
+  </mat-card>

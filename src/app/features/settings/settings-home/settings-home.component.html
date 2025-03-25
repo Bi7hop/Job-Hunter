@@ -1,0 +1,86 @@
+<div class="settings-container">
+  <div class="settings-header">
+    <h1>Settings</h1>
+    <p>Customize your job search experience</p>
+  </div>
+
+  <div class="settings-grid">
+    <mat-card class="settings-card">
+      <h2 class="settings-card-title">Appearance</h2>
+      
+      <div class="settings-option">
+        <div class="option-info">
+          <h3>Dark Mode</h3>
+          <p>Use dark theme throughout the app</p>
+        </div>
+        <mat-slide-toggle [(ngModel)]="darkModeEnabled" color="primary"></mat-slide-toggle>
+      </div>
+      
+      <mat-divider></mat-divider>
+      
+      <div class="settings-option">
+        <div class="option-info">
+          <h3>Language</h3>
+          <p>Select your preferred language</p>
+        </div>
+        <select [(ngModel)]="language" class="settings-select">
+          <option *ngFor="let option of languageOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </mat-card>
+    
+    <mat-card class="settings-card">
+      <h2 class="settings-card-title">Notifications</h2>
+      
+      <div class="settings-option">
+        <div class="option-info">
+          <h3>Email Notifications</h3>
+          <p>Receive job alerts via email</p>
+        </div>
+        <mat-slide-toggle [(ngModel)]="emailNotificationsEnabled" color="primary"></mat-slide-toggle>
+      </div>
+      
+      <mat-divider></mat-divider>
+      
+      <div class="settings-option">
+        <div class="option-info">
+          <h3>Push Notifications</h3>
+          <p>Receive alerts on your browser</p>
+        </div>
+        <mat-slide-toggle [(ngModel)]="pushNotificationsEnabled" color="primary"></mat-slide-toggle>
+      </div>
+      
+      <mat-divider></mat-divider>
+      
+      <div class="settings-option">
+        <div class="option-info">
+          <h3>Alert Frequency</h3>
+          <p>How often would you like to receive alerts</p>
+        </div>
+        <select [(ngModel)]="jobAlertFrequency" class="settings-select">
+          <option *ngFor="let option of frequencyOptions" [value]="option.value">
+            {{ option.label }}
+          </option>
+        </select>
+      </div>
+    </mat-card>
+    
+    <mat-card class="settings-card">
+      <h2 class="settings-card-title">Job Application</h2>
+      
+      <div class="settings-option">
+        <div class="option-info">
+          <h3>Auto-Apply</h3>
+          <p>Automatically apply to matching jobs</p>
+        </div>
+        <mat-slide-toggle [(ngModel)]="autoApplyEnabled" color="primary"></mat-slide-toggle>
+      </div>
+    </mat-card>
+  </div>
+  
+  <div class="settings-actions">
+    <button class="advanced-filters-button" (click)="saveSettings()">Save Settings</button>
+  </div>
+</div>

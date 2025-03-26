@@ -1,4 +1,12 @@
 <div class="tracker-container">
+  <!-- Custom Notification via ErrorMessageComponent -->
+  <app-error-message 
+    *ngIf="showNotification" 
+    [title]="notificationTitle" 
+    [message]="notificationMessage" 
+    [showRetry]="false">
+  </app-error-message>
+
   <div class="tracker-header">
     <h1>Job Tracker</h1>
     <p>Create and manage your job search criteria</p>
@@ -19,28 +27,28 @@
         <div class="form-group">
           <mat-form-field appearance="outline">
             <mat-label>Job Title</mat-label>
-            <input matInput placeholder="e.g. Frontend Developer">
+            <input matInput [(ngModel)]="jobTitle" placeholder="e.g. Frontend Developer">
           </mat-form-field>
         </div>
         
         <div class="form-group">
           <mat-form-field appearance="outline">
             <mat-label>Location</mat-label>
-            <input matInput placeholder="City or Remote">
+            <input matInput [(ngModel)]="jobLocation" placeholder="City or Remote">
           </mat-form-field>
         </div>
         
         <div class="form-group">
           <mat-form-field appearance="outline">
             <mat-label>Keywords (separate with comma)</mat-label>
-            <input matInput placeholder="e.g. React, TypeScript, UI">
+            <input matInput [(ngModel)]="keywords" placeholder="e.g. React, TypeScript, UI">
           </mat-form-field>
         </div>
         
         <div class="form-group">
           <mat-form-field appearance="outline">
             <mat-label>Job Type</mat-label>
-            <mat-select>
+            <mat-select [(ngModel)]="selectedJobType">
               <mat-option value="all">All Types</mat-option>
               <mat-option value="fulltime">Full-time</mat-option>
               <mat-option value="parttime">Part-time</mat-option>
@@ -92,7 +100,17 @@
   <div class="tracker-list">
     <h2 class="section-title">Active Job Trackers</h2>
     
-    <div class="tracker-cards">
+    <div *ngIf="isLoading" class="loading-indicator">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span>Loading trackers...</span>
+    </div>
+    
+    <div *ngIf="!isLoading && activeTrackers.length === 0" class="no-trackers-found">
+      <mat-icon>search</mat-icon>
+      <p>No job trackers found. Create a new tracker to start tracking jobs.</p>
+    </div>
+    
+    <div class="tracker-cards" *ngIf="!isLoading && activeTrackers.length > 0">
       <mat-card class="tracker-card" *ngFor="let tracker of activeTrackers">
         <div class="tracker-card-header">
           <h3 class="tracker-title">{{ tracker.title }}</h3>
@@ -109,7 +127,7 @@
         <div class="tracker-metadata">
           <div class="tracker-location">
             <mat-icon>location_on</mat-icon>
-            <span>{{ tracker.location }}</span>
+            <span>{{ tracker.location || 'Any Location' }}</span>
           </div>
           <div class="tracker-type">
             <mat-icon>work</mat-icon>

@@ -1,0 +1,148 @@
+<div class="tracker-container">
+  <div class="tracker-header">
+    <h1>Job Tracker</h1>
+    <p>Create and manage your job search criteria</p>
+    
+    <div class="tracker-actions">
+      <button class="advanced-filters-button" (click)="toggleNewTrackerForm()">
+        <mat-icon>add</mat-icon>
+        New Job Tracker
+      </button>
+    </div>
+  </div>
+  
+  <div class="new-tracker-form" *ngIf="showNewTrackerForm">
+    <mat-card>
+      <h2 class="form-title">Create New Job Tracker</h2>
+      
+      <div class="form-grid">
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Job Title</mat-label>
+            <input matInput placeholder="e.g. Frontend Developer">
+          </mat-form-field>
+        </div>
+        
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <input matInput placeholder="City or Remote">
+          </mat-form-field>
+        </div>
+        
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Keywords (separate with comma)</mat-label>
+            <input matInput placeholder="e.g. React, TypeScript, UI">
+          </mat-form-field>
+        </div>
+        
+        <div class="form-group">
+          <mat-form-field appearance="outline">
+            <mat-label>Job Type</mat-label>
+            <mat-select>
+              <mat-option value="all">All Types</mat-option>
+              <mat-option value="fulltime">Full-time</mat-option>
+              <mat-option value="parttime">Part-time</mat-option>
+              <mat-option value="contract">Contract</mat-option>
+              <mat-option value="remote">Remote</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3>Salary Range</h3>
+        <div class="salary-slider">
+          <div class="slider-row">
+            <label class="slider-label">Minimum Salary:</label>
+            <mat-slider min="20000" max="100000" step="5000" discrete>
+              <input matSliderThumb [(ngModel)]="minSalary" (valueChange)="updateMinSalary($event)">
+            </mat-slider>
+            <span class="slider-value">€{{ minSalary.toLocaleString() }}</span>
+          </div>
+          <div class="slider-row">
+            <label class="slider-label">Maximum Salary:</label>
+            <mat-slider min="40000" max="150000" step="5000" discrete>
+              <input matSliderThumb [(ngModel)]="maxSalary" (valueChange)="updateMaxSalary($event)">
+            </mat-slider>
+            <span class="slider-value">€{{ maxSalary.toLocaleString() }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3>Select Platforms</h3>
+        <div class="platforms-grid">
+          <div class="platform-item" *ngFor="let platform of availablePlatforms">
+            <mat-slide-toggle [(ngModel)]="platform.isSelected">
+              {{ platform.name }}
+            </mat-slide-toggle>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button mat-button (click)="toggleNewTrackerForm()">Cancel</button>
+        <button class="advanced-filters-button" (click)="createNewTracker()">Create Tracker</button>
+      </div>
+    </mat-card>
+  </div>
+  
+  <div class="tracker-list">
+    <h2 class="section-title">Active Job Trackers</h2>
+    
+    <div class="tracker-cards">
+      <mat-card class="tracker-card" *ngFor="let tracker of activeTrackers">
+        <div class="tracker-card-header">
+          <h3 class="tracker-title">{{ tracker.title }}</h3>
+          <div class="tracker-actions">
+            <button mat-icon-button (click)="editTracker(tracker.id)" matTooltip="Edit">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteTracker(tracker.id)" matTooltip="Delete">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        
+        <div class="tracker-metadata">
+          <div class="tracker-location">
+            <mat-icon>location_on</mat-icon>
+            <span>{{ tracker.location }}</span>
+          </div>
+          <div class="tracker-type">
+            <mat-icon>work</mat-icon>
+            <span>{{ tracker.jobType }}</span>
+          </div>
+          <div class="tracker-salary">
+            <mat-icon>euro</mat-icon>
+            <span>{{ tracker.salary }}</span>
+          </div>
+        </div>
+        
+        <div class="tracker-keywords">
+          <span class="keyword-tag" *ngFor="let keyword of tracker.keywords">{{ keyword }}</span>
+        </div>
+        
+        <div class="tracker-platforms">
+          <span class="platform-name" *ngFor="let platform of tracker.platforms">{{ platform }}</span>
+        </div>
+        
+        <div class="tracker-matches">
+          <div class="match-count">
+            <span>{{ tracker.matchCount }}</span>
+            <span class="match-label">matches found</span>
+          </div>
+          <div class="tracker-updated">
+            Updated {{ tracker.lastUpdated }}
+          </div>
+        </div>
+        
+        <div class="tracker-card-actions">
+          <button class="view-job-button">View Matches</button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

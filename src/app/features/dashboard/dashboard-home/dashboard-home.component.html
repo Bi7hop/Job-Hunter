@@ -9,7 +9,7 @@
       <div class="search-field">
         <mat-form-field appearance="outline">
           <mat-label>Job Title / Keywords</mat-label>
-          <input matInput placeholder="e.g. Frontend Developer, Python">
+          <input matInput [(ngModel)]="searchQuery" placeholder="e.g. Frontend Developer, Python">
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </div>
@@ -17,7 +17,7 @@
       <div class="search-field">
         <mat-form-field appearance="outline">
           <mat-label>Location</mat-label>
-          <input matInput placeholder="City, Country or Remote">
+          <input matInput [(ngModel)]="selectedLocation" placeholder="City, Country or Remote">
         </mat-form-field>
       </div>
       
@@ -31,8 +31,11 @@
       </div>
       
       <div class="search-actions">
-        <button class="advanced-filters-button">
-          Advanced Filters
+        <button mat-raised-button color="primary" (click)="searchJobs()">
+          Search Jobs
+        </button>
+        <button mat-button color="accent" (click)="triggerScrape()">
+          <mat-icon>refresh</mat-icon> Refresh Data
         </button>
       </div>
     </div>
@@ -44,7 +47,7 @@
         <div class="stat-header">
           <span class="stat-label">Total Jobs Found</span>
         </div>
-        <div class="stat-value">378</div>
+        <div class="stat-value">{{ totalJobs || 0 }}</div>
         <div class="stat-trend positive">
           <mat-icon class="trend-icon">trending_up</mat-icon>
           +12%
@@ -55,7 +58,7 @@
         <div class="stat-header">
           <span class="stat-label">New Today</span>
         </div>
-        <div class="stat-value">43</div>
+        <div class="stat-value">{{ newToday || 0 }}</div>
         <div class="stat-trend positive">
           <mat-icon class="trend-icon">trending_up</mat-icon>
           +8%
@@ -66,7 +69,7 @@
         <div class="stat-header">
           <span class="stat-label">Avg. Salary</span>
         </div>
-        <div class="stat-value">€65k</div>
+        <div class="stat-value">{{ avgSalary }}</div>
         <div class="stat-trend positive">
           <mat-icon class="trend-icon">trending_up</mat-icon>
           +4%
@@ -77,8 +80,10 @@
         <div class="stat-header">
           <span class="stat-label">Tracked Sites</span>
         </div>
-        <div class="stat-value">8</div>
-        <div class="stat-status">Active</div>
+        <div class="stat-value">3</div>
+        <div class="stat-status" [ngClass]="{'active': isLoading}">
+          {{ isLoading ? 'Refreshing...' : 'Active' }}
+        </div>
       </div>
     </div>
   </div>
@@ -86,7 +91,20 @@
   <div class="jobs-section">
     <h2 class="section-title">Latest Job Listings</h2>
     
-    <div class="job-cards">
+    <div *ngIf="isLoading" class="loading-indicator">
+      <mat-spinner diameter="40"></mat-spinner>
+      <span>Loading jobs...</span>
+    </div>
+    
+    <div *ngIf="!isLoading && recentJobs.length === 0" class="no-jobs-found">
+      <mat-icon>search</mat-icon>
+      <p>No jobs found. Try broadening your search or scrape for new jobs.</p>
+      <button mat-raised-button color="primary" (click)="triggerScrape()">
+        Scrape for Jobs
+      </button>
+    </div>
+    
+    <div class="job-cards" *ngIf="!isLoading && recentJobs.length > 0">
       <div class="job-card" *ngFor="let job of recentJobs">
         <div class="job-card-left">
           <div class="company-initial" [style.background-color]="job.initialColor">
@@ -109,7 +127,7 @@
             <div class="job-source">via {{ job.source }}</div>
           </div>
           
-          <button class="view-job-button">View Job</button>
+          <a [href]="job.url" target="_blank" class="view-job-button">View Job</a>
         </div>
       </div>
     </div>

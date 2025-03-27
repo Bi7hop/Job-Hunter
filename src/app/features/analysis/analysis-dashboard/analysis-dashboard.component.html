@@ -1,163 +1,221 @@
-<div class="analysis-container">
-    <div class="analysis-header">
-      <h1>Job Market Analysis</h1>
-      <p>Insights and trends from your job search data</p>
+<div class="analysis-container bg-[var(--background-color)] min-h-screen p-6">
+
+  <div class="mb-4">
+    <h1 class="text-3xl font-bold bg-gradient-to-r from-[#8a4af3] to-[#c23ef3] text-transparent bg-clip-text">
+      Job Market Analysis
+    </h1>
+    <p class="text-[var(--text-secondary)]">Insights and trends from your job search data</p>
+  </div>
+  
+  <div class="analysis-filters w-full max-w-xs mb-8">
+    <label class="block text-gray-400 text-sm mb-2">Date Range</label>
+    <div class="relative">
+      <select [(ngModel)]="selectedDateRange"
+              (change)="updateDateRange()"
+              class="w-full p-3 bg-[#151b30] text-white rounded-md border border-[#151b30]
+                     focus:border-[#8a4af3] focus:ring-2 focus:ring-[#8a4af3]
+                     focus:ring-opacity-40 focus:outline-none transition-all duration-300
+                     appearance-none">
+        <option *ngFor="let range of dateRanges" [value]="range.value">
+          {{ range.label }}
+        </option>
+      </select>
+      <svg class="w-5 h-5 absolute right-3 top-3 text-gray-400 pointer-events-none"
+           fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7"></path>
+      </svg>
+    </div>
+  </div>
+    
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+
+    <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#8a4af3] to-[#4a7aff] group-hover:w-1.5 transition-all duration-300"></div>
       
-      <div class="analysis-filters">
-        <mat-form-field appearance="outline">
-          <mat-label>Date Range</mat-label>
-          <mat-select [(value)]="selectedDateRange" (selectionChange)="updateDateRange()">
-            <mat-option *ngFor="let range of dateRanges" [value]="range.value">
-              {{ range.label }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+      <div class="text-sm text-gray-400 mb-1 group-hover:text-gray-300 transition-colors duration-300">
+        Total Jobs
+      </div>
+      <div class="text-3xl font-bold text-white">378</div>
+      <div class="flex items-center text-green-400 mt-2">
+        <mat-icon class="mr-1">arrow_upward</mat-icon>
+        <span class="text-sm">12.5% increase vs. previous period</span>
       </div>
     </div>
-    
-    <div class="analysis-summary">
-      <div class="summary-card-grid">
-        <mat-card class="summary-card">
-          <div class="summary-icon">
-            <mat-icon>trending_up</mat-icon>
-          </div>
-          <div class="summary-content">
-            <h2 class="summary-title">Total Jobs</h2>
-            <div class="summary-value">378</div>
-            <div class="summary-trend positive">
-              <mat-icon>arrow_upward</mat-icon>
-              <span>12.5% increase vs. previous period</span>
-            </div>
-          </div>
-        </mat-card>
-        
-        <mat-card class="summary-card">
-          <div class="summary-icon">
-            <mat-icon>attach_money</mat-icon>
-          </div>
-          <div class="summary-content">
-            <h2 class="summary-title">Average Salary</h2>
-            <div class="summary-value">€65,420</div>
-            <div class="summary-trend positive">
-              <mat-icon>arrow_upward</mat-icon>
-              <span>4.2% increase vs. previous period</span>
-            </div>
-          </div>
-        </mat-card>
-        
-        <mat-card class="summary-card">
-          <div class="summary-icon">
-            <mat-icon>star</mat-icon>
-          </div>
-          <div class="summary-content">
-            <h2 class="summary-title">Most Demanded Skill</h2>
-            <div class="summary-value">React</div>
-            <div class="summary-subtext">
-              <span>Found in 38% of jobs</span>
-            </div>
-          </div>
-        </mat-card>
-        
-        <mat-card class="summary-card">
-          <div class="summary-icon">
-            <mat-icon>location_on</mat-icon>
-          </div>
-          <div class="summary-content">
-            <h2 class="summary-title">Top Location</h2>
-            <div class="summary-value">Berlin</div>
-            <div class="summary-subtext">
-              <span>31% of job postings</span>
-            </div>
-          </div>
-        </mat-card>
+
+    <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#4a9fff] to-[#4af2ff] group-hover:w-1.5 transition-all duration-300"></div>
+      
+      <div class="text-sm text-gray-400 mb-1 group-hover:text-gray-300 transition-colors duration-300">
+        Average Salary
+      </div>
+      <div class="text-3xl font-bold text-white">€65,420</div>
+      <div class="flex items-center text-green-400 mt-2">
+        <mat-icon class="mr-1">arrow_upward</mat-icon>
+        <span class="text-sm">4.2% increase vs. previous period</span>
       </div>
     </div>
-    
-    <div class="analysis-charts">
-      <mat-tab-group>
-        <mat-tab label="Job Trends">
-          <div class="chart-container">
-            <h2 class="chart-title">Job Postings Over Time</h2>
-            <div class="chart-card">
-              <div class="placeholder-chart">
-                <p>Line chart showing job postings trends over time</p>
-                <p class="placeholder-note">In a real implementation, this would be a chart using ng2-charts or another chart library</p>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
-        
-        <mat-tab label="Skills Analysis">
-          <div class="chart-container">
-            <h2 class="chart-title">Most Demanded Skills</h2>
-            <div class="chart-card">
-              <div class="placeholder-chart">
-                <p>Bar chart showing most in-demand skills</p>
-                <p class="placeholder-note">In a real implementation, this would be a chart using ng2-charts or another chart library</p>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
-        
-        <mat-tab label="Platform Distribution">
-          <div class="chart-container">
-            <h2 class="chart-title">Job Postings by Platform</h2>
-            <div class="chart-card">
-              <div class="placeholder-chart">
-                <p>Pie chart showing job distribution across platforms</p>
-                <p class="placeholder-note">In a real implementation, this would be a chart using ng2-charts or another chart library</p>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
-        
-        <mat-tab label="Salary Insights">
-          <div class="chart-container">
-            <h2 class="chart-title">Salary Distribution</h2>
-            <div class="chart-card">
-              <div class="placeholder-chart">
-                <p>Bar chart showing salary distribution</p>
-                <p class="placeholder-note">In a real implementation, this would be a chart using ng2-charts or another chart library</p>
-              </div>
-            </div>
-          </div>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    
-    <div class="analysis-insights">
-      <h2 class="section-title">Key Insights</h2>
+
+    <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#38caff] to-[#38ffda] group-hover:w-1.5 transition-all duration-300"></div>
       
-      <div class="insights-grid">
-        <mat-card class="insight-card">
-          <div class="insight-icon">
-            <mat-icon>lightbulb</mat-icon>
-          </div>
-          <div class="insight-content">
-            <h3>Skill Trend</h3>
-            <p>React skills are trending 15% higher than last month. Consider highlighting React projects in your portfolio.</p>
-          </div>
-        </mat-card>
-        
-        <mat-card class="insight-card">
-          <div class="insight-icon">
-            <mat-icon>location_city</mat-icon>
-          </div>
-          <div class="insight-content">
-            <h3>Location Insights</h3>
-            <p>Remote job offerings have increased by 24% compared to the previous period.</p>
-          </div>
-        </mat-card>
-        
-        <mat-card class="insight-card">
-          <div class="insight-icon">
-            <mat-icon>euro</mat-icon>
-          </div>
-          <div class="insight-content">
-            <h3>Salary Insights</h3>
-            <p>Full-stack positions tend to offer 12% higher salaries than specialized frontend or backend roles.</p>
-          </div>
-        </mat-card>
+      <div class="text-sm text-gray-400 mb-1 group-hover:text-gray-300 transition-colors duration-300">
+        Most Demanded Skill
+      </div>
+      <div class="text-3xl font-bold text-white">React</div>
+      <div class="text-sm text-gray-400 mt-2">
+        Found in 38% of jobs
+      </div>
+    </div>
+
+    <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#ffc938] to-[#ff8438] group-hover:w-1.5 transition-all duration-300"></div>
+      
+      <div class="text-sm text-gray-400 mb-1 group-hover:text-gray-300 transition-colors duration-300">
+        Top Location
+      </div>
+      <div class="text-3xl font-bold text-white">Berlin</div>
+      <div class="text-sm text-gray-400 mt-2">
+        31% of job postings
       </div>
     </div>
   </div>
+
+  <div class="analysis-charts mb-8">
+    <mat-tab-group>
+
+      <mat-tab label="Job Trends">
+        <div class="mt-6">
+          <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+            <span class="relative pb-2">
+              Job Postings Over Time
+              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#8a4af3] to-transparent"></span>
+            </span>
+          </h2>
+
+          <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#8a4af3] to-[#4a7aff] group-hover:w-1.5 transition-all duration-300"></div>
+            <div class="text-center text-gray-400">
+              <p>Line chart showing job postings trends over time</p>
+              <p class="placeholder-note text-sm mt-2">
+                In a real implementation, this would be a chart using ng2-charts or another chart library
+              </p>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Skills Analysis">
+        <div class="mt-6">
+          <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+            <span class="relative pb-2">
+              Most Demanded Skills
+              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#4a9fff] to-transparent"></span>
+            </span>
+          </h2>
+
+          <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#4a9fff] to-[#4af2ff] group-hover:w-1.5 transition-all duration-300"></div>
+            <div class="text-center text-gray-400">
+              <p>Bar chart showing most in-demand skills</p>
+              <p class="placeholder-note text-sm mt-2">
+                In a real implementation, this would be a chart using ng2-charts or another chart library
+              </p>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Platform Distribution">
+        <div class="mt-6">
+          <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+            <span class="relative pb-2">
+              Job Postings by Platform
+              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#38caff] to-transparent"></span>
+            </span>
+          </h2>
+
+          <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#38caff] to-[#38ffda] group-hover:w-1.5 transition-all duration-300"></div>
+            <div class="text-center text-gray-400">
+              <p>Pie chart showing job distribution across platforms</p>
+              <p class="placeholder-note text-sm mt-2">
+                In a real implementation, this would be a chart using ng2-charts or another chart library
+              </p>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Salary Insights">
+        <div class="mt-6">
+          <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+            <span class="relative pb-2">
+              Salary Distribution
+              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#ffc938] to-transparent"></span>
+            </span>
+          </h2>
+
+          <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group">
+            <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#ffc938] to-[#ff8438] group-hover:w-1.5 transition-all duration-300"></div>
+            <div class="text-center text-gray-400">
+              <p>Bar chart showing salary distribution</p>
+              <p class="placeholder-note text-sm mt-2">
+                In a real implementation, this would be a chart using ng2-charts or another chart library
+              </p>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+
+  <div>
+    <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+      <span class="relative pb-2">
+        Key Insights
+        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#8a4af3] to-transparent"></span>
+      </span>
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#8a4af3] to-[#4a7aff] group-hover:w-1.5 transition-all duration-300"></div>
+        
+        <div class="flex items-center gap-2 text-white mb-2">
+          <mat-icon>lightbulb</mat-icon>
+          <h3 class="text-lg font-semibold">Skill Trend</h3>
+        </div>
+        <p class="text-sm text-gray-300">
+          React skills are trending 15% higher than last month. Consider highlighting React projects in your portfolio.
+        </p>
+      </div>
+      
+      <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#4a9fff] to-[#4af2ff] group-hover:w-1.5 transition-all duration-300"></div>
+        
+        <div class="flex items-center gap-2 text-white mb-2">
+          <mat-icon>location_city</mat-icon>
+          <h3 class="text-lg font-semibold">Location Insights</h3>
+        </div>
+        <p class="text-sm text-gray-300">
+          Remote job offerings have increased by 24% compared to the previous period.
+        </p>
+      </div>
+      
+      <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#38caff] to-[#38ffda] group-hover:w-1.5 transition-all duration-300"></div>
+        
+        <div class="flex items-center gap-2 text-white mb-2">
+          <mat-icon>euro</mat-icon>
+          <h3 class="text-lg font-semibold">Salary Insights</h3>
+        </div>
+        <p class="text-sm text-gray-300">
+          Full-stack positions tend to offer 12% higher salaries than specialized frontend or backend roles.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

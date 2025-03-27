@@ -1,148 +1,177 @@
-<div class="dashboard-container">
-  <div class="dashboard-header">
-    <h1>Job Search Dashboard</h1>
-    <p>Track and analyze job postings across multiple platforms</p>
+<div class="dashboard-container bg-[var(--background-color)] min-h-screen p-6">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold bg-gradient-to-r from-[#8a4af3] to-[#c23ef3] text-transparent bg-clip-text">Job Search Dashboard</h1>
+    <p class="text-[var(--text-secondary)]">Track and analyze job postings across multiple platforms</p>
   </div>
 
-  <div class="search-section">
-    <div class="search-row">
-      <div class="search-field">
-        <mat-form-field appearance="outline">
-          <mat-label>Job Title / Keywords</mat-label>
-          <input matInput [(ngModel)]="searchQuery" placeholder="e.g. Frontend Developer, Python">
-          <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-      </div>
-      
-      <div class="search-field">
-        <mat-form-field appearance="outline">
-          <mat-label>Location</mat-label>
-          <input matInput [(ngModel)]="selectedLocation" placeholder="City, Country or Remote">
-        </mat-form-field>
-      </div>
-      
-      <div class="search-field">
-        <mat-form-field appearance="outline">
-          <mat-label>Radius (km)</mat-label>
-          <input matInput type="number" [(ngModel)]="locationRadius" min="5" max="200" placeholder="Radius in km">
-        </mat-form-field>
-      </div>
-      
-      <div class="search-field">
-        <mat-form-field appearance="outline">
-          <mat-label>Job Types</mat-label>
-          <mat-select [(value)]="selectedJobType">
-            <mat-option *ngFor="let type of jobTypes" [value]="type">{{ type }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      
-      <div class="search-actions">
-        <button mat-raised-button color="primary" (click)="searchJobs()">
-          Search Jobs
-        </button>
-        <button mat-button color="accent" (click)="triggerScrape()">
-          <mat-icon>refresh</mat-icon> Refresh Data
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="stats-section">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-label">Total Jobs Found</span>
-        </div>
-        <div class="stat-value">{{ totalJobs || 0 }}</div>
-        <div class="stat-trend positive">
-          <mat-icon class="trend-icon">trending_up</mat-icon>
-          +12%
+  <div class="bg-[#1c2137] bg-opacity-70 rounded-lg shadow-lg p-5 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div>
+        <label class="block text-gray-400 text-sm mb-2">Job Title / Keywords</label>
+        <div class="relative">
+          <input type="text" [(ngModel)]="searchQuery" 
+                placeholder="e.g. Frontend Developer, Python"
+                class="w-full p-3 bg-[#151b30] text-white rounded-md border border-[#151b30] focus:border-[#8a4af3] focus:ring-2 focus:ring-[#8a4af3] focus:ring-opacity-40 focus:outline-none transition-all duration-300">
+          <svg class="w-5 h-5 absolute right-3 top-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
         </div>
       </div>
       
-      <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-label">New Today</span>
-        </div>
-        <div class="stat-value">{{ newToday || 0 }}</div>
-        <div class="stat-trend positive">
-          <mat-icon class="trend-icon">trending_up</mat-icon>
-          +8%
-        </div>
+      <div>
+        <label class="block text-gray-400 text-sm mb-2">Location</label>
+        <input type="text" [(ngModel)]="selectedLocation" 
+              placeholder="City, Country or Remote"
+              class="w-full p-3 bg-[#151b30] text-white rounded-md border border-[#151b30] focus:border-[#8a4af3] focus:ring-2 focus:ring-[#8a4af3] focus:ring-opacity-40 focus:outline-none transition-all duration-300">
       </div>
       
-      <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-label">Job Age Filter</span>
-        </div>
-        <div class="filter-value">
-          <mat-form-field appearance="outline" class="compact-form-field">
-            <mat-label>Max Job Age</mat-label>
-            <mat-select [(value)]="maxJobAgeDays" (selectionChange)="onMaxAgeChange($event)">
-              <mat-option [value]="1">1 days</mat-option>
-              <mat-option [value]="3">3 days</mat-option>
-              <mat-option [value]="7">7 days</mat-option>
-              <mat-option [value]="14">14 days</mat-option>
-              <mat-option [value]="30">30 days</mat-option>
-              <mat-option [value]="0">No limit</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+      <div>
+        <label class="block text-gray-400 text-sm mb-2">Radius (km)</label>
+        <input type="number" [(ngModel)]="locationRadius" min="5" max="200" 
+              placeholder="50"
+              class="w-full p-3 bg-[#151b30] text-white rounded-md border border-[#151b30] focus:border-[#8a4af3] focus:ring-2 focus:ring-[#8a4af3] focus:ring-opacity-40 focus:outline-none transition-all duration-300">
       </div>
       
-      <div class="stat-card">
-        <div class="stat-header">
-          <span class="stat-label">Tracked Sites</span>
-        </div>
-        <div class="stat-value">2</div>
-        <div class="stat-status" [ngClass]="{'active': isLoading}">
-          {{ isLoading ? 'Refreshing...' : 'Active' }}
+      <div>
+        <label class="block text-gray-400 text-sm mb-2">Job Types</label>
+        <div class="relative">
+          <select [(ngModel)]="selectedJobType"
+                 class="w-full p-3 bg-[#151b30] text-white rounded-md border border-[#151b30] focus:border-[#8a4af3] focus:ring-2 focus:ring-[#8a4af3] focus:ring-opacity-40 focus:outline-none appearance-none transition-all duration-300">
+            <option *ngFor="let type of jobTypes" [value]="type">{{ type }}</option>
+          </select>
+          <svg class="w-5 h-5 absolute right-3 top-3 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="jobs-section">
-    <h2 class="section-title">Latest Job Listings</h2>
-    
-    <div *ngIf="isLoading" class="loading-indicator">
-      <mat-spinner diameter="40"></mat-spinner>
-      <span>Loading jobs...</span>
     </div>
     
-    <div *ngIf="!isLoading && recentJobs.length === 0" class="no-jobs-found">
-      <mat-icon>search</mat-icon>
-      <p>No jobs found. Try broadening your search or scrape for new jobs.</p>
-      <button mat-raised-button color="primary" (click)="triggerScrape()">
+    <div class="flex gap-3 mt-5">
+      <button (click)="searchJobs()"
+              class="px-5 py-2 bg-gradient-to-r from-[#e91e63] to-[#f06292] text-white rounded-md shadow hover:shadow-lg hover:from-[#d81b60] hover:to-[#ec407a] transform hover:translate-y-px active:translate-y-0.5 transition-all duration-300">
+        Search Jobs
+      </button>
+      <button (click)="triggerScrape()"
+              class="px-4 py-2 bg-[#151b30] hover:bg-[#1a2038] text-white rounded-md border border-gray-700 hover:border-[#8a4af3] hover:shadow-md transform hover:translate-y-px active:translate-y-0.5 transition-all duration-300 flex items-center">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        <span>Refresh Data</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#8a4af3] to-[#4a7aff] group-hover:w-1.5 transition-all duration-300"></div>
+      <div class="text-sm text-gray-400 mb-1 group-hover:text-gray-300 transition-colors duration-300">Total Jobs Found</div>
+      <div class="text-3xl font-bold text-white">{{ totalJobs || 0 }}</div>
+      <div class="flex items-center text-green-400 mt-2">
+        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+        </svg>
+        <span>+12%</span>
+      </div>
+    </div>
+    
+    <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#4a9fff] to-[#4af2ff] group-hover:w-1.5 transition-all duration-300"></div>
+      <div class="text-sm text-gray-400 mb-1 group-hover:text-gray-300 transition-colors duration-300">New Today</div>
+      <div class="text-3xl font-bold text-white">{{ newToday || 0 }}</div>
+      <div class="flex items-center text-green-400 mt-2">
+        <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+        </svg>
+        <span>+8%</span>
+      </div>
+    </div>
+    
+    <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#38caff] to-[#38ffda] group-hover:w-1.5 transition-all duration-300"></div>
+      <div class="text-sm text-gray-400 mb-2 group-hover:text-gray-300 transition-colors duration-300">Job Age Filter</div>
+      <div class="relative">
+        <select [(ngModel)]="maxJobAgeDays" (change)="onMaxAgeChange($event)"
+               class="w-full p-2 bg-[#151b30] text-white rounded-md border border-[#151b30] focus:border-[#38caff] focus:ring-2 focus:ring-[#38caff] focus:ring-opacity-40 focus:outline-none appearance-none transition-all duration-300">
+          <option [value]="1">1 day</option>
+          <option [value]="3">3 days</option>
+          <option [value]="7">7 days</option>
+          <option [value]="14">14 days</option>
+          <option [value]="30">30 days</option>
+          <option [value]="0">No limit</option>
+        </select>
+        <svg class="w-5 h-5 absolute right-3 top-2 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </div>
+    </div>
+    
+    <div class="relative p-5 bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group">
+      <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#ffc938] to-[#ff8438] group-hover:w-1.5 transition-all duration-300"></div>
+      <div class="text-sm text-gray-400 mb-1 group-hover:text-gray-300 transition-colors duration-300">Tracked Sites</div>
+      <div class="text-3xl font-bold text-white">2</div>
+      <div class="text-blue-400 mt-2">
+        {{ isLoading ? 'Refreshing...' : 'Active' }}
+      </div>
+    </div>
+  </div>
+  
+  <div>
+    <h2 class="text-xl font-bold text-white mb-6 flex items-center">
+      <span class="relative pb-2">
+        Latest Job Listings
+        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#8a4af3] to-transparent"></span>
+      </span>
+    </h2>
+    
+    <div *ngIf="isLoading" class="flex flex-col items-center justify-center py-10">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#8a4af3]"></div>
+      <span class="mt-4 text-gray-300">Loading jobs...</span>
+    </div>
+    
+    <div *ngIf="!isLoading && recentJobs.length === 0" class="flex flex-col items-center justify-center py-16 text-center">
+      <svg class="w-16 h-16 text-gray-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <p class="text-gray-300 mb-4">No jobs found. Try broadening your search or scrape for new jobs.</p>
+      <button (click)="triggerScrape()"
+              class="px-5 py-2 bg-gradient-to-r from-[#8a4af3] to-[#c23ef3] text-white rounded-md shadow hover:shadow-lg hover:from-[#7a3ad3] hover:to-[#b22ee3] transform hover:translate-y-px active:translate-y-0.5 transition-all duration-300">
         Scrape for Jobs
       </button>
     </div>
     
-    <div class="job-cards" *ngIf="!isLoading && recentJobs.length > 0">
-      <div class="job-card" *ngFor="let job of recentJobs">
-        <div class="job-card-left">
-          <div class="company-initial" [style.background-color]="job.initialColor">
-            {{ job.company.charAt(0) }}
-          </div>
-        </div>
-        
-        <div class="job-card-middle">
-          <h3 class="job-title">{{ job.title }}</h3>
-          <div class="job-company">{{ job.company }} · {{ job.location }}</div>
-          
-          <div class="job-tags">
-            <span class="job-tag" *ngFor="let tag of job.tags">{{ tag }}</span>
-          </div>
-        </div>
-        
-        <div class="job-card-right">
-          <div class="job-meta">
-            <div class="job-posted">Posted {{ job.postedTime }}</div>
-            <div class="job-source">via {{ job.source }}</div>
+    <div *ngIf="!isLoading && recentJobs.length > 0" class="space-y-4">
+      <div *ngFor="let job of recentJobs" 
+           class="bg-[#1c2137] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 border border-[#1c2137] hover:border-[#292f4d] border-opacity-60 group">
+        <div class="p-4">
+          <div class="flex items-start mb-4">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-white text-lg font-bold mr-3 shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:scale-105" [style.background-color]="job.initialColor">
+              {{ job.company.charAt(0) }}
+            </div>
+            <div class="flex-1">
+              <h3 class="text-lg font-semibold text-white mb-1 group-hover:text-[#bba5f8] transition-colors duration-300">{{ job.title }}</h3>
+              <p class="text-gray-300 text-sm">{{ job.company }} · {{ job.location }}</p>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-gray-400">Posted {{ job.postedTime }}</div>
+              <div class="text-xs text-gray-500">via {{ job.source }}</div>
+            </div>
           </div>
           
-          <a [href]="job.url" target="_blank" class="view-job-button">View Job</a>
+          <div class="flex items-center justify-between mt-2">
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 text-xs rounded-full bg-indigo-500 bg-opacity-20 text-indigo-300 border border-indigo-500 border-opacity-30 group-hover:bg-opacity-30 group-hover:border-opacity-50 transition-all duration-300">
+                {{ job.location.toLowerCase().includes('remote') ? 'Remote' : 'On-site' }}
+              </span>
+              <span class="px-3 py-1 text-xs rounded-full bg-purple-500 bg-opacity-20 text-purple-300 border border-purple-500 border-opacity-30 group-hover:bg-opacity-30 group-hover:border-opacity-50 transition-all duration-300">
+                Full-time
+              </span>
+            </div>
+            
+            <a [href]="job.url" target="_blank" 
+               class="px-4 py-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-md shadow hover:shadow-lg hover:from-indigo-700 hover:to-purple-700 transform hover:translate-y-px active:translate-y-0.5 transition-all duration-300 text-sm font-medium">
+              View Job
+            </a>
+          </div>
         </div>
       </div>
     </div>

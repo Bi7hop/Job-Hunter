@@ -34,13 +34,14 @@ export class DashboardHomeComponent implements OnInit {
   
   searchQuery: string = '';
   selectedLocation: string = '';
+  locationRadius: number = 50; 
+  maxJobAgeDays: number = 7; 
   
   recentJobs: any[] = [];
   isLoading: boolean = false;
   totalJobs: number = 0;
   newToday: number = 0;
-  avgSalary: string = '€65k'; // Standardwert, später dynamisch berechnen
-
+  
   constructor(
     private jobDataService: JobDataService,
     private scraperService: ScraperService
@@ -54,7 +55,6 @@ export class DashboardHomeComponent implements OnInit {
     this.isLoading = true;
     this.jobDataService.getAllJobs().subscribe({
       next: (response) => {
-        // Wandle Backend-Jobs in das Frontend-Format um
         this.recentJobs = response.data.map((job: any) => ({
           id: job.id,
           title: job.title,
@@ -64,11 +64,17 @@ export class DashboardHomeComponent implements OnInit {
           postedTime: this.formatPostedTime(job.posted_date || job.created_at),
           source: job.source,
           initialColor: this.getRandomColor(job.company),
-          url: job.url
+          url: job.url,
+          rawDate: job.posted_date || job.created_at 
         }));
         
         this.totalJobs = response.count;
         this.calculateNewToday(response.data);
+        
+        if (this.maxJobAgeDays > 0) {
+          this.filterByAge(this.maxJobAgeDays);
+        }
+        
         this.isLoading = false;
       },
       error: (error) => {
@@ -91,11 +97,17 @@ export class DashboardHomeComponent implements OnInit {
           postedTime: this.formatPostedTime(job.posted_date || job.created_at),
           source: job.source,
           initialColor: this.getRandomColor(job.company),
-          url: job.url
+          url: job.url,
+          rawDate: job.posted_date || job.created_at
         }));
         
         this.totalJobs = response.count;
         this.calculateNewToday(response.data);
+        
+        if (this.maxJobAgeDays > 0) {
+          this.filterByAge(this.maxJobAgeDays);
+        }
+        
         this.isLoading = false;
       },
       error: (error) => {
@@ -106,12 +118,12 @@ export class DashboardHomeComponent implements OnInit {
   }
 
   triggerScrape(): void {
-    const platforms = ['linkedin', 'indeed', 'stepstone'];
+    const platforms = ['linkedin', 'stepstone'];
     this.isLoading = true;
-    this.scraperService.triggerScrape(platforms, this.searchQuery, this.selectedLocation).subscribe({
+    this.scraperService.triggerScrape(platforms, this.searchQuery, this.selectedLocation, this.locationRadius).subscribe({
       next: (response) => {
         console.log('Scraping triggered:', response);
-        this.loadJobs(); // Lade die Jobs neu nach dem Scraping
+        this.loadJobs(); 
       },
       error: (error) => {
         console.error('Error triggering scrape:', error);
@@ -120,14 +132,26 @@ export class DashboardHomeComponent implements OnInit {
     });
   }
 
-  filterJobs(filters: any): void {
-    console.log('Filtering jobs with:', filters);
-    this.searchJobs();
+  filterByAge(days: number): void {
+    if (!days || days <= 0 || !this.recentJobs || this.recentJobs.length === 0) return;
+    
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - days);
+    
+    this.recentJobs = this.recentJobs.filter(job => {
+      const jobDate = new Date(job.rawDate);
+      return jobDate >= cutoffDate;
+    });
+    
+    this.totalJobs = this.recentJobs.length;
   }
 
-  // Hilfsmethoden
+  onMaxAgeChange(event: any): void {
+    this.maxJobAgeDays = event.value;
+    this.loadJobs(); 
+  }
+
   private getRandomColor(seed: string): string {
-    // Einfache deterministische Funktion, um Farbe aus Firmennamen zu generieren
     let hash = 0;
     for (let i = 0; i < seed.length; i++) {
       hash = seed.charCodeAt(i) + ((hash << 5) - hash);
@@ -152,21 +176,13 @@ export class DashboardHomeComponent implements OnInit {
   private generateTags(job: any): string[] {
     const tags: string[] = [];
     
-    // Beispiel-Logik für Tag-Generierung
-    // In einer echten Anwendung würdest du vielleicht Keywords aus der Jobbeschreibung extrahieren
     if (job.location.toLowerCase().includes('remote')) {
       tags.push('Remote');
     } else {
       tags.push('On-site');
     }
     
-    // Standard-Jobtyp hinzufügen
     tags.push('Full-time');
-    
-    // Wenn Gehalt vorhanden ist, als Tag hinzufügen
-    if (job.salary) {
-      tags.push(job.salary);
-    }
     
     return tags;
   }

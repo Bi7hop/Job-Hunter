@@ -139,7 +139,6 @@
   }
 }
 
-// Job Listings Section
 .jobs-section {
   margin-bottom: 32px;
   
@@ -228,8 +227,6 @@
       }
     }
   }
-
-  
   
   @media (max-width: 768px) {
     flex-direction: column;
@@ -287,5 +284,95 @@
   
   &:hover {
     background-color: var(--primary-hover);
+  }
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  padding: 0 16px;
+  background-color: #f5f7fa;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.filter-label {
+  min-width: 120px;
+  margin-right: 16px;
+  font-weight: 500;
+}
+
+.filter-label span {
+  white-space: nowrap;
+}
+
+mat-slider {
+  flex-grow: 1;
+  margin-right: 16px;
+}
+
+.stat-details {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  color: #666;
+  margin-top: 8px;
+}
+
+.filter-icon {
+  font-size: 24px;
+  color: #3f51b5;
+  vertical-align: middle;
+}
+
+.filter-value {
+  padding: 0 8px;
+  width: 100%;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: center;
+}
+
+.compact-form-field {
+  width: 100%;
+  margin: 0;
+  
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding: 8px 0;
+    min-height: unset;
+  }
+  
+  ::ng-deep .mat-mdc-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter-label {
+    margin-bottom: 8px;
+  }
+  
+  mat-slider {
+    width: 100%;
+    margin-right: 0;
+  }
+  
+  .stat-card {
+    padding: 12px;
+  }
+  
+  .stat-value {
+    font-size: 24px;
   }
 }

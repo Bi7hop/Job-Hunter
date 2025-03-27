@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
+@tailwind base;
+@layer base {
+}
+
+@tailwind components;
+@layer components {
+}
+
+@tailwind utilities;
+@layer utilities {
+}
+
 :root {
   --background-color: #131624;
   --card-bg: #1c2137;
@@ -178,4 +190,16 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--primary-hover); 
+}
+
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }

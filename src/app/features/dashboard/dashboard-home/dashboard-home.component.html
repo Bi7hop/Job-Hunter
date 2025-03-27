@@ -23,6 +23,13 @@
       
       <div class="search-field">
         <mat-form-field appearance="outline">
+          <mat-label>Radius (km)</mat-label>
+          <input matInput type="number" [(ngModel)]="locationRadius" min="5" max="200" placeholder="Radius in km">
+        </mat-form-field>
+      </div>
+      
+      <div class="search-field">
+        <mat-form-field appearance="outline">
           <mat-label>Job Types</mat-label>
           <mat-select [(value)]="selectedJobType">
             <mat-option *ngFor="let type of jobTypes" [value]="type">{{ type }}</mat-option>
@@ -67,12 +74,20 @@
       
       <div class="stat-card">
         <div class="stat-header">
-          <span class="stat-label">Avg. Salary</span>
+          <span class="stat-label">Job Age Filter</span>
         </div>
-        <div class="stat-value">{{ avgSalary }}</div>
-        <div class="stat-trend positive">
-          <mat-icon class="trend-icon">trending_up</mat-icon>
-          +4%
+        <div class="filter-value">
+          <mat-form-field appearance="outline" class="compact-form-field">
+            <mat-label>Max Job Age</mat-label>
+            <mat-select [(value)]="maxJobAgeDays" (selectionChange)="onMaxAgeChange($event)">
+              <mat-option [value]="1">1 days</mat-option>
+              <mat-option [value]="3">3 days</mat-option>
+              <mat-option [value]="7">7 days</mat-option>
+              <mat-option [value]="14">14 days</mat-option>
+              <mat-option [value]="30">30 days</mat-option>
+              <mat-option [value]="0">No limit</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
       
@@ -80,7 +95,7 @@
         <div class="stat-header">
           <span class="stat-label">Tracked Sites</span>
         </div>
-        <div class="stat-value">3</div>
+        <div class="stat-value">2</div>
         <div class="stat-status" [ngClass]="{'active': isLoading}">
           {{ isLoading ? 'Refreshing...' : 'Active' }}
         </div>
